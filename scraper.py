@@ -29,7 +29,10 @@ with sync_playwright() as p:
     company_name_text = job_name_parent_sibling.locator('span').first.text_content()
     print(f"Company Name: {company_name_text}")
 
-    
+    job_location_text = job_name_parent_sibling.locator('span').nth(1).text_content()
+    print(f"Job Location: {job_location_text}")
+
+
 
 
 
