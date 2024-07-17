@@ -35,14 +35,14 @@ with sync_playwright() as p:
     job_location_text = container_company_location_remote.locator('span').nth(1).text_content()
     print(f"Job Location: {job_location_text}")
 
-    remote_tag = container_company_location_remote.get_by_text('remote')
+    remote_tags = container_company_location_remote.get_by_text('remote')
 
-
-    is_remote = True if remote_tag.count() > 0 else False
-
+    is_remote = True if remote_tags.count() > 0 else False
     print(f"Is Remote: {is_remote}")
 
- 
+    salary = job_name.locator("xpath=following-sibling::*[1]").locator("xpath=./div[1]").text_content()
+    print(f"Salary: {salary}")
+
 
 
 time.sleep(5)
