@@ -17,8 +17,19 @@ with sync_playwright() as p:
 
     job_offer = job_anchor.locator('..')
 
-    job_name_text = job_offer.locator('h3').text_content()
+    job_name = job_offer.locator('h3') # h3 tag 
+
+    job_name_text = job_name.text_content()
     print(f"Job Name: {job_name_text}")
+
+    job_name_parent = job_name.locator('..')
+
+    job_name_parent_sibling = job_name_parent.locator("xpath=following-sibling::*[1]")
+
+    company_name_text = job_name_parent_sibling.locator('span').first.text_content()
+    print(f"Company Name: {company_name_text}")
+
+    
 
 
 
