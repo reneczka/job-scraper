@@ -14,6 +14,7 @@ def extract_job_offers():
 
 def extract_job_info(job_anchor):
     job_offer = job_anchor.locator('..')
+
     job_name = job_offer.locator('h3')
 
     job_name_text = job_name.text_content()
@@ -34,6 +35,9 @@ def extract_job_info(job_anchor):
 
     salary = job_name.locator("xpath=following-sibling::*[1]").locator("xpath=./div[1]").text_content()
     print(f"Salary: {salary}")
+
+    job_url = 'https://justjoin.it' + job_anchor.get_attribute('href')
+    print(f"Job URL: {job_url}")
     
     print("-" * 50)
 
@@ -49,8 +53,8 @@ with sync_playwright() as p:
     page.get_by_text("Latest").click()
 
     page.wait_for_load_state('networkidle')
-    
-    all_offers = []
+    ########### rename 
+    all_offers_test = []
 
     extract_job_offers()
 
