@@ -1,6 +1,17 @@
 from playwright.sync_api import sync_playwright
 import time
 
+def extract_job_offers():
+    job_anchors = page.locator('a.offer_list_offer_link')
+    num_offers = job_anchors.count()
+
+    for i in range(num_offers):
+        job_anchor = job_anchors.nth(i)
+        extract_job_info(job_anchor)
+
+    print(f"Number of offers extracted: {num_offers}")
+
+
 def extract_job_info(job_anchor):
     job_offer = job_anchor.locator('..')
     job_name = job_offer.locator('h3')
@@ -27,7 +38,7 @@ def extract_job_info(job_anchor):
     print("-" * 50)
 
 with sync_playwright() as p:
-    browser = p.chromium.launch(slow_mo=250)
+    browser = p.chromium.launch(headless=False, slow_mo=250)
     page = browser.new_page()
     page.goto('https://justjoin.it')
 
@@ -38,11 +49,24 @@ with sync_playwright() as p:
     page.get_by_text("Latest").click()
 
     page.wait_for_load_state('networkidle')
+    
+    all_offers = []
 
-    job_anchors = page.locator('a.offer_list_offer_link') 
+    extract_job_offers()
 
-    for i in range(job_anchors.count()):
-        job_anchor = job_anchors.nth(i)
-        extract_job_info(job_anchor)
+    for iteration in range(3):
+        page.mouse.wheel(0, 2000)
+        extract_job_offers()
 
-time.sleep(5)
+    time.sleep(20)
+
+
+
+
+# 1. create a loop (iterate 3 times)
+#        scroll
+#        load new offers
+#  2, save all job offers in a list
+#  3 iterate over them
+#  4 print offer details
+#     
