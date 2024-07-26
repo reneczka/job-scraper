@@ -50,42 +50,31 @@ def get_job_info(job_anchor):
         'job_url': job_url
     }
 
+
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True, slow_mo=250)
+    browser = p.chromium.launch(headless=False, slow_mo=250)
     page = browser.new_page()
     page.goto('https://justjoin.it')
 
     page.wait_for_selector("#cookiescript_accept")
     page.click("#cookiescript_accept")
     page.click('a[href="/all-locations/python"]')
-    page.click('button[name="sort_filter_button"]')  
+    time.sleep(1)
+    page.click('button[name="sort_filter_button"]')
     page.get_by_text("Latest").click()
+    # junior filter
+    page.click('button[name="more_filters_button"]')
+    page.click('input[name="experienceLevels-junior"]')
+    page.click('button[name="more_filters_submit_button"]')
+    
+    
 
     page.wait_for_load_state('networkidle')
-    all_offers = []
     
     initial_set = get_jobs_set()
 
-    all_offers.extend(initial_set)
-
-    for iteration in range(3):
-        page.mouse.wheel(0, 2000)
-        scrolled_set = get_jobs_set()
-        updated_all_offers = copy.deepcopy(all_offers)
-
-
-        for scrolled_offer in scrolled_set:
-            found = False
-            for existing_offer in all_offers:
-                if scrolled_offer['job_url'] == existing_offer['job_url']:
-                    found = True
-                    break
-            if not found:
-                updated_all_offers.append(scrolled_offer) 
-
-        all_offers = updated_all_offers      
-    
-
-    print(len(all_offers))
+    # all_offers.extend(initial_set)
+   
+    print(len(initial_set))
 
     time.sleep(5)
