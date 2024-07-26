@@ -1,5 +1,6 @@
 from playwright.sync_api import sync_playwright
 import time
+import copy
 
 def get_jobs_set():
     job_anchors = page.locator('a.offer_list_offer_link')
@@ -62,7 +63,7 @@ with sync_playwright() as p:
 
     page.wait_for_load_state('networkidle')
     all_offers = []
-
+    
     initial_set = get_jobs_set()
 
     all_offers.extend(initial_set)
@@ -70,20 +71,21 @@ with sync_playwright() as p:
     for iteration in range(3):
         page.mouse.wheel(0, 2000)
         scrolled_set = get_jobs_set()
-        all_offers.extend(scrolled_set)
-        
+        updated_all_offers = copy.deepcopy(all_offers)
+
+
+        for scrolled_offer in scrolled_set:
+            found = False
+            for existing_offer in all_offers:
+                if scrolled_offer['job_url'] == existing_offer['job_url']:
+                    found = True
+                    break
+            if not found:
+                updated_all_offers.append(scrolled_offer) 
+
+        all_offers = updated_all_offers      
     
-    print(all_offers)
+
+    print(len(all_offers))
 
     time.sleep(5)
-
-
-# 1: stworzenie listy ze wszystkimi ofertami
-# 	a)stworzenie pustej listy
-# 	b)dodanie inicjalnych ofert do listy
-# 		b).1.nowa zmienna z id href
-# 		b).2.returnowanie slownika z oferta
-# 	c)dodanie ofert po scrolu w petli
-# 	(sprawienie w tej petli zeby sie nie duplikowaly oferty)
-
-# 2: wrzucic do bazy
