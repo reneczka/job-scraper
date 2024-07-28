@@ -33,26 +33,30 @@ def get_job_info(job_anchor):
     job_location_text = container_company_location_remote.locator('span').nth(1).text_content()
     # print(f"Job Location: {job_location_text}")
 
-    remote_tags = container_company_location_remote.get_by_text('remote')
-
-    is_remote = True if remote_tags.count() > 0 else False
-    # print(f"Is Remote: {is_remote}")
-
     salary = job_name.locator("xpath=following-sibling::*[1]").locator("xpath=./div[1]").text_content()
     # print(f"Salary: {salary}")
 
     job_url = 'https://justjoin.it' + job_anchor.get_attribute('href')
     # print(f"Job URL: {job_url}")
     
+    details = get_job_details(page, job_url)
+    page.go_back()
+    
+    
     # print("-" * 100)
-    return {
+    all_info =  {
         'job_name': job_name_text,
         'company_name': company_name_text,
         'job_location': job_location_text,
-        'is_remote': is_remote,
         'salary': salary,
         'job_url': job_url,
     }
+    
+    result = {**all_info, **details}
+   
+
+    print(result)
+    return result
 
 def get_job_details(page, job_url):
     page.goto(job_url)
@@ -86,12 +90,18 @@ def get_job_details(page, job_url):
     # offer details part 3
     job_description = page.get_by_text('Job description').first.locator('..').locator("xpath=following-sibling::*[1]").inner_text()
 
-
-    print(job_description)
+    return {
+        'type_of_work': type_of_work,
+        'experience': experience,
+        'employment_type': employment_type,
+        'operating_mode': operating_mode,
+        'technologies': technologies,
+        'job_description': job_description,
+    }
 
 
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True, slow_mo=250)
+    browser = p.chromium.launch(headless=False, slow_mo=250)
     page = browser.new_page()
     page.goto('https://justjoin.it')
 
@@ -101,6 +111,7 @@ with sync_playwright() as p:
     time.sleep(1)
     page.click('button[name="sort_filter_button"]')
     page.get_by_text("Latest").click()
+    time.sleep(1)
     # junior filter
     page.click('button[name="more_filters_button"]')
     page.click('input[name="experienceLevels-junior"]')
@@ -115,23 +126,13 @@ with sync_playwright() as p:
     # print(len(initial_set))
     # print(initial_set)
 
-    get_job_details(page, "https://justjoin.it/offers/tango-python-engineer-junior--krakow-python")
+    # print(get_job_details(page, "https://justjoin.it/offers/tango-python-engineer-junior--krakow-python")) 
 
 
     time.sleep(5)
 
 
-'''
-pass url into address bar
-enter
 
-- experience
-- employment type
-- operating type
-
-
-- job description
-'''
 
 
 
