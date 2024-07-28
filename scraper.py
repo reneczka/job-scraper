@@ -56,6 +56,7 @@ def get_job_info(job_anchor):
 
 def get_job_details(page, job_url):
     page.goto(job_url)
+    # offer details part 1
     type_of_work_label = page.get_by_text('Type of work').first
     type_of_work = type_of_work_label.locator('xpath=following-sibling::*[1]').text_content()
     experience_label = page.get_by_text('Experience').first
@@ -65,13 +66,29 @@ def get_job_details(page, job_url):
     operating_mode_label = page.get_by_text('Operating mode').first
     operating_mode = operating_mode_label.locator('xpath=following-sibling::*[1]').text_content()
     
+    # offer details part 2
+    techstack_label = page.get_by_text('Tech stack').first
+    techstack_container = techstack_label.locator("xpath=following-sibling::*[1]").locator("ul")
+    tech_items = techstack_container.locator("> div")
 
+    technologies = []
+    for i in range(tech_items.count()):
+        tech_item = tech_items.nth(i)
 
+        technology = tech_item.locator("h4").inner_text()
+        level = tech_item.locator("span").inner_text()
+        tech_dict = {
+            'tech': technology,
+            'level': level
+        }
+        technologies.append(tech_dict)
 
-    print(type_of_work)
-    print(experience)
-    print(employment_type)
-    print(operating_mode)
+    print(technologies)
+
+    # print(type_of_work)
+    # print(experience)
+    # print(employment_type)
+    # print(operating_mode)
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True, slow_mo=250)
@@ -108,12 +125,10 @@ with sync_playwright() as p:
 pass url into address bar
 enter
 
-- type of work
 - experience
 - employment type
 - operating type
 
-- tech stack z kropkami/procentami
 
 - job description
 '''
