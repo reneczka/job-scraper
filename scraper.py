@@ -83,12 +83,12 @@ def get_job_details(page, job_url):
         }
         technologies.append(tech_dict)
 
-    print(technologies)
+    # offer details part 3
+    job_description = page.get_by_text('Job description').first.locator('..').locator("xpath=following-sibling::*[1]").inner_text()
 
-    # print(type_of_work)
-    # print(experience)
-    # print(employment_type)
-    # print(operating_mode)
+
+    print(job_description)
+
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True, slow_mo=250)
