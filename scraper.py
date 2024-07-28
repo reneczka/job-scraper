@@ -1,15 +1,15 @@
 from playwright.sync_api import sync_playwright
 import time
-import copy
 
-def get_jobs_set():
+
+def get_jobs_set(page):
     job_anchors = page.locator('a.offer_list_offer_link')
     num_offers = job_anchors.count()
     jobs_set = []
 
     for i in range(num_offers):
         job_anchor = job_anchors.nth(i)
-        job_info = get_job_info(job_anchor)
+        job_info = get_job_info(page, job_anchor)
         jobs_set.append(job_info)
 
     # print(f"Number of offers extracted: {num_offers}")
@@ -17,7 +17,7 @@ def get_jobs_set():
     return jobs_set
 
 
-def get_job_info(job_anchor):
+def get_job_info(page, job_anchor):
     job_offer = job_anchor.locator('..')
 
     job_name = job_offer.locator('h3')
@@ -53,10 +53,9 @@ def get_job_info(job_anchor):
     }
     
     result = {**all_info, **details}
-   
-
-    print(result)
+        
     return result
+
 
 def get_job_details(page, job_url):
     page.goto(job_url)
@@ -99,37 +98,29 @@ def get_job_details(page, job_url):
         'job_description': job_description,
     }
 
+def scrape_jobs():
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True, slow_mo=250)
+        page = browser.new_page()
+        page.goto('https://justjoin.it')
 
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=False, slow_mo=250)
-    page = browser.new_page()
-    page.goto('https://justjoin.it')
-
-    page.wait_for_selector("#cookiescript_accept")
-    page.click("#cookiescript_accept")
-    page.click('a[href="/all-locations/python"]')
-    time.sleep(1)
-    page.click('button[name="sort_filter_button"]')
-    page.get_by_text("Latest").click()
-    time.sleep(1)
-    # junior filter
-    page.click('button[name="more_filters_button"]')
-    page.click('input[name="experienceLevels-junior"]')
-    page.click('button[name="more_filters_submit_button"]')
-    
-    page.wait_for_load_state('networkidle')
-    initial_set = get_jobs_set()
-
-
-    # all_offers.extend(initial_set)
-   
-    # print(len(initial_set))
-    # print(initial_set)
-
-    # print(get_job_details(page, "https://justjoin.it/offers/tango-python-engineer-junior--krakow-python")) 
-
-
-    time.sleep(5)
+        page.wait_for_selector("#cookiescript_accept")
+        page.click("#cookiescript_accept")
+        page.click('a[href="/all-locations/python"]')
+        time.sleep(1)
+        page.click('button[name="sort_filter_button"]')
+        page.get_by_text("Latest").click()
+        time.sleep(1)
+        # junior filter
+        page.click('button[name="more_filters_button"]')
+        page.click('input[name="experienceLevels-junior"]')
+        page.click('button[name="more_filters_submit_button"]')
+        
+        page.wait_for_load_state('networkidle')
+        initial_set = get_jobs_set(page)
+        browser.close()
+        return initial_set
+        
 
 
 
