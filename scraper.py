@@ -58,6 +58,7 @@ def get_job_info(page, job_anchor):
 
 
 def get_job_details(page, job_url):
+    time.sleep(1)
     page.goto(job_url)
     # offer details part 1
     type_of_work_label = page.get_by_text('Type of work').first
@@ -87,7 +88,7 @@ def get_job_details(page, job_url):
         technologies.append(tech_dict)
 
     # offer details part 3
-    job_description = page.get_by_text('Job description').first.locator('..').locator("xpath=following-sibling::*[1]").inner_text()
+    job_description = page.get_by_text('Job description').first.locator('..').locator("xpath=following-sibling::div[1]").inner_text()
 
     return {
         'type_of_work': type_of_work,
@@ -117,9 +118,9 @@ def scrape_jobs():
         page.click('button[name="more_filters_submit_button"]')
         
         page.wait_for_load_state('networkidle')
-        initial_set = get_jobs_set(page)
+        all_jobs = get_jobs_set(page)
         browser.close()
-        return initial_set
+        return all_jobs
         
 
 
