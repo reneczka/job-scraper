@@ -47,12 +47,34 @@ def get_job_info(job_anchor):
     # print("-" * 100)
     return {
         'job_name': job_name_text,
-        'job_url': job_url
+        'company_name': company_name_text,
+        'job_location': job_location_text,
+        'is_remote': is_remote,
+        'salary': salary,
+        'job_url': job_url,
     }
 
+def get_job_details(page, job_url):
+    page.goto(job_url)
+    type_of_work_label = page.get_by_text('Type of work').first
+    type_of_work = type_of_work_label.locator('xpath=following-sibling::*[1]').text_content()
+    experience_label = page.get_by_text('Experience').first
+    experience = experience_label.locator('xpath=following-sibling::*[1]').text_content()
+    employment_type_label = page.get_by_text('Employment Type').first
+    employment_type = employment_type_label.locator('xpath=following-sibling::*[1]').text_content()
+    operating_mode_label = page.get_by_text('Operating mode').first
+    operating_mode = operating_mode_label.locator('xpath=following-sibling::*[1]').text_content()
+    
+
+
+
+    print(type_of_work)
+    print(experience)
+    print(employment_type)
+    print(operating_mode)
 
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=False, slow_mo=250)
+    browser = p.chromium.launch(headless=True, slow_mo=250)
     page = browser.new_page()
     page.goto('https://justjoin.it')
 
@@ -67,14 +89,34 @@ with sync_playwright() as p:
     page.click('input[name="experienceLevels-junior"]')
     page.click('button[name="more_filters_submit_button"]')
     
-    
-
     page.wait_for_load_state('networkidle')
-    
     initial_set = get_jobs_set()
+
 
     # all_offers.extend(initial_set)
    
-    print(len(initial_set))
+    # print(len(initial_set))
+    # print(initial_set)
+
+    get_job_details(page, "https://justjoin.it/offers/tango-python-engineer-junior--krakow-python")
+
 
     time.sleep(5)
+
+
+'''
+pass url into address bar
+enter
+
+- type of work
+- experience
+- employment type
+- operating type
+
+- tech stack z kropkami/procentami
+
+- job description
+'''
+
+
+
