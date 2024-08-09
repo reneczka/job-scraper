@@ -1,6 +1,6 @@
 # Python Job Scraper
 
-This Python project is a web scraper designed to extract job listings from job board websites. The scraper gathers detailed job information, including job title, company name, location, salary, and required technologies, and stores the data in a PostgreSQL database using SQLAlchemy. This project also serves as a data input source for subsequent projects and can be expanded in the future to include additional job boards.
+This Python project is a web scraper designed to extract job listings from a job board website. The scraper gathers detailed job information, including job title, company name, location, salary, and required technologies, and stores the data in a PostgreSQL database using SQLAlchemy. This project also serves as a data input source for subsequent projects and can be expanded in the future to include additional job boards.
 
 ## Table of Contents
 
@@ -27,11 +27,11 @@ This Python project is a web scraper designed to extract job listings from job b
 - **Dotenv**: Manages environment variables.
 
 ## Project Structure
-├── main.py           # Main script to execute the scraping and database storage.
-├── models.py         # Contains SQLAlchemy models and database initialization logic.
-├── scraper.py        # Contains the logic for scraping job listings from the website.
-├── .env              # Environment file to store database URL and other sensitive information.
-└── README.md         # Project documentation.
+├── main.py           # Main script to execute the scraping and database storage.  
+├── models.py         # Contains SQLAlchemy models and database initialization logic.  
+├── scraper.py        # Contains the logic for scraping job listings from the website.  
+├── .env              # Environment file to store database URL and other sensitive information.  
+└── README.md         # Project documentation.  
 
 
 ## Setup and Installation
@@ -54,7 +54,7 @@ This Python project is a web scraper designed to extract job listings from job b
 
 2. **Install the required Python packages:**
 
-   pip install sqlalchemy python-dotenv playwright
+   pip install sqlalchemy python-dotenv playwright psycopg2
 
 3. **Set up the `.env` file:**
 
