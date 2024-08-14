@@ -48,9 +48,9 @@ This Python project is a web scraper designed to extract job listings from a job
 
 1. **Clone the repository:**
 
-   git init
-   git clone https://github.com/reneczka/job-scraper.git
-   cd job-scraper
+   git init  
+   git clone https://github.com/reneczka/job-scraper.git  
+   cd job-scraper  
 
 2. **Install the required Python packages:**
 
@@ -58,15 +58,15 @@ This Python project is a web scraper designed to extract job listings from a job
 
 3. **Set up the `.env` file:**
 
-   Create a `.env` file in the root directory of the project and add your PostgreSQL database URL. Example:
+   Create a `.env` file in the root directory of the project and add your PostgreSQL database URL. Example:  
 
-   DATABASE_URL=postgresql://user:password@localhost/dbname
+   DATABASE_URL=postgresql://user:password@localhost/dbname  
 
-   Replace \`user\`, \`password\`, \`localhost\`, and \`dbname\` with your PostgreSQL credentials and database name.
+   Replace \`user\`, \`password\`, \`localhost\`, and \`dbname\` with your PostgreSQL credentials and database name.  
 
 4. **Initialize the database:**
 
-   Run the \`main.py\` script to create the database tables:
+   Run the \`main.py\` script to create the database tables:  
 
    python main.py
 
@@ -74,9 +74,9 @@ This Python project is a web scraper designed to extract job listings from a job
 
 1. **Run the scraper:**
 
-   Simply execute the \`main.py\` script to start scraping and storing jobs:
+   Simply execute the \`main.py\` script to start scraping and storing jobs:  
 
-   python main.py
+   python main.py  
 
    The scraper will extract the latest job listings, check for duplicates, and store new listings in the PostgreSQL database.
 

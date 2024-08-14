@@ -30,6 +30,7 @@ for job in scraped_jobs:
             new_technology = Technology(tech=tech['tech'], level=tech['level'], job=new_job)
 
             session.add(new_technology)
+        print(f"Job added to database")
     else:
         print(f"Job already exists in the database: {job['job_url']}")
 
