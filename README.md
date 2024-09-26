@@ -118,4 +118,4 @@ The project uses SQLAlchemy to define the database schema. The schema consists o
 
 ## All done!
 
-Yo're good to go!
+You're good to go!
