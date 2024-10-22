@@ -4,7 +4,7 @@ import time
 def get_jobs_set(page):
     # select all job offer links using the class selector
     # this targets <a> elements with the class 'offer_list_offer_link'
-    job_anchors = page.locator('a.offer_list_offer_link').locator('..')
+    job_anchors = page.locator('a[href^="/job-offer/"]')
     num_offers = job_anchors.count()
     jobs_set = []
 
@@ -40,6 +40,7 @@ def get_job_info(page, job_anchor):
 
     # construct the full job URL by appending the href attribute to the base URL
     job_url = 'https://justjoin.it' + job_anchor.get_attribute('href')
+    
 
     
     details = get_job_details(page, job_url)
@@ -124,19 +125,23 @@ def scrape_jobs():
         page.click("#cookiescript_accept")
         
         # navigate to python jobs by clicking the link with the specified href
-        page.click('a[href="/all-locations/python"]')
+        page.click('a[href="/job-offers/all-locations/python"]')
         time.sleep(1)
         
         # open sort options and select "latest"
         page.click('button[name="sort_filter_button"]')
+        time.sleep(1)
         page.get_by_text("Latest").click()
         time.sleep(1)
         
         # apply junior filter by opening more filters, selecting the checkbox, and submitting
         page.click('button[name="more_filters_button"]')
-        page.click('input[name="experienceLevels-junior"]')
+        time.sleep(1)
+        page.click('input[value="junior"]')
         page.click('button[name="more_filters_submit_button"]')
-        
+        time.sleep(1)
+      
+
         # wait for the page to finish loading
         page.wait_for_load_state('networkidle')
         all_jobs = get_jobs_set(page)
