@@ -27,11 +27,14 @@ This Python project is a web scraper designed to extract job listings from a job
 - **Dotenv**: Manages environment variables.
 
 ## Project Structure
-├── main.py           # Main script to execute the scraping and database storage.  
-├── models.py         # Contains SQLAlchemy models and database initialization logic.  
-├── scraper.py        # Contains the logic for scraping job listings from the website.  
-├── .env              # Environment file to store database URL and other sensitive information.  
-└── README.md         # Project documentation.  
+
+**Project Root**  
+├── **`main.py`**          — Main script to execute the scraping and database storage  
+├── **`models.py`**       — SQLAlchemy models and database initialization logic  
+├── **`scraper.py`**      — Logic for scraping job listings from the website  
+├── **`.env`**               — Stores database URL and other sensitive information  
+└── **`README.md`**    — Project documentation  
+
 
 
 ## Setup and Installation
