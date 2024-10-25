@@ -48,13 +48,13 @@ This Python project is a web scraper designed to extract job listings from a job
 
 1. **Clone the repository:**
 
-   git init  
-   git clone https://github.com/reneczka/job-scraper.git  
-   cd job-scraper  
+   `git init`  
+   `git clone https://github.com/reneczka/job-scraper.git` 
+   `cd job-scraper` 
 
 2. **Install the required Python packages:**
 
-   pip install sqlalchemy python-dotenv playwright psycopg2
+   `pip install sqlalchemy python-dotenv playwright psycopg2`
 
 3. **Set up the `.env` file:**
 
@@ -68,7 +68,7 @@ This Python project is a web scraper designed to extract job listings from a job
 
    Run the \`main.py\` script to create the database tables:  
 
-   python main.py
+   `python main.py`
 
 ### Usage
 
@@ -76,7 +76,7 @@ This Python project is a web scraper designed to extract job listings from a job
 
    Simply execute the \`main.py\` script to start scraping and storing jobs:  
 
-   python main.py  
+   `python main.py` 
 
    The scraper will extract the latest job listings, check for duplicates, and store new listings in the PostgreSQL database.
 
