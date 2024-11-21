@@ -59,6 +59,8 @@ This Python project is a web scraper designed to extract job listings from a job
 
    `pip install -r requirements.txt`
 
+   `playwright install-deps chromium`
+
 3. **Set up the `.env` file:**
 
    Create a `.env` file in the root directory of the project and add your PostgreSQL database URL.
@@ -67,21 +69,15 @@ This Python project is a web scraper designed to extract job listings from a job
 
    Replace \`user\`, \`password\`, \`host\`, and \`dbname\` with your PostgreSQL credentials and database name.  
 
-4. **Initialize the database:**
-
-   Run the \`main.py\` script to create the database tables:  
-
-   `python main.py`
-
 ### Usage
 
 1. **Run the scraper:**
 
-   Simply execute the \`main.py\` script to start scraping and storing jobs:  
+   Simply execute the \`main.py\` script to start scraping and storing jobs (retry if fails in the first run):  
 
    `python main.py` 
 
-   The scraper will extract the latest job listings, check for duplicates, and store new listings in the PostgreSQL database.
+   The scraper will create db tables (if they don't already exist), extract the latest job listings, check for duplicates, and store new listings in the PostgreSQL database.
 
 2. **Accessing Data:**
 
