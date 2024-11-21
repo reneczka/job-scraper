@@ -1,6 +1,6 @@
 # Python Job Scraper
 
-This Python project is a web scraper designed to extract job listings from a job board website. The scraper gathers detailed job information, including job title, company name, location, salary, and required technologies, and stores the data in a PostgreSQL database using SQLAlchemy. This project also serves as a data input source for subsequent projects and can be expanded in the future to include additional job boards.
+This Python project is a web scraper designed to extract job listings from a job board website (Just Join IT). The scraper gathers detailed job information, including job title, company name, location, salary, and required technologies, and stores the data in a PostgreSQL database using SQLAlchemy. This project also serves as a data input source for subsequent projects and can be expanded in the future to include additional job boards.
 
 ## Table of Contents
 
@@ -20,7 +20,7 @@ This Python project is a web scraper designed to extract job listings from a job
 
 ## Technologies Used
 
-- **Python**: Core programming language.
+- **Python**: Core programming language used.
 - **Playwright**: Used for browser automation and web scraping.
 - **SQLAlchemy**: ORM for interacting with the PostgreSQL database.
 - **PostgreSQL**: Database for storing job listings.
@@ -32,7 +32,7 @@ This Python project is a web scraper designed to extract job listings from a job
 ├── **`main.py`**          — Main script to execute the scraping and database storage  
 ├── **`models.py`**       — SQLAlchemy models and database initialization logic  
 ├── **`scraper.py`**      — Logic for scraping job listings from the website  
-├── **`.env`**               — Stores database URL and other sensitive information  
+├── **`.env`**               — Stores DATABASE_URL env var with a value like 
 └── **`README.md`**    — Project documentation  
 
 
@@ -41,31 +41,31 @@ This Python project is a web scraper designed to extract job listings from a job
 
 ### Prerequisites
 
-- Python 3.x
-- pip
+- Python 3.11
 - Playwright
 - PostgreSQL
 - A PostgreSQL user and database created for the project
 
 ### Installation
 
-1. **Clone the repository:**
+1. **Clone the repository and enter the project dir:**
 
-   `git init`  
-   `git clone https://github.com/reneczka/job-scraper.git` 
+   
+   `git clone https://github.com/reneczka/job-scraper.git`
+
    `cd job-scraper` 
 
 2. **Install the required Python packages:**
 
-   `pip install sqlalchemy python-dotenv playwright psycopg2`
+   `pip install -r requirements.txt`
 
 3. **Set up the `.env` file:**
 
-   Create a `.env` file in the root directory of the project and add your PostgreSQL database URL. Example:  
+   Create a `.env` file in the root directory of the project and add your PostgreSQL database URL.
+   
+   You can find `.env.example` in the repository.
 
-   DATABASE_URL=postgresql://user:password@localhost/dbname  
-
-   Replace \`user\`, \`password\`, \`localhost\`, and \`dbname\` with your PostgreSQL credentials and database name.  
+   Replace \`user\`, \`password\`, \`host\`, and \`dbname\` with your PostgreSQL credentials and database name.  
 
 4. **Initialize the database:**
 
@@ -119,6 +119,3 @@ The project uses SQLAlchemy to define the database schema. The schema consists o
 | level   | String  | Proficiency level         |
 | job_id  | Integer | Foreign key to Jobs table |
 
-## All done!
-
-You're good to go!
