@@ -54,7 +54,8 @@ def get_job_details(page, job_url):
     type_of_work_label = page.get_by_text('Type of work').first
     type_of_work = type_of_work_label.locator('xpath=following-sibling::*[1]').text_content()
     
-    experience_label = page.get_by_text('Experience').first
+    # experience_label = page.get_by_text('Experience').first
+    experience_label = page.locator('//div[text()="Experience"]')
     experience = experience_label.locator('xpath=following-sibling::*[1]').text_content()
     
     employment_type_label = page.get_by_text('Employment Type').first

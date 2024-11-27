@@ -1,6 +1,7 @@
 # Python Job Scraper
 
-This Python project is a web scraper designed to extract job listings from a job board website (Just Join IT). The scraper gathers detailed job information, including job title, company name, location, salary, and required technologies, and stores the data in a PostgreSQL database using SQLAlchemy. This project also serves as a data input source for subsequent projects and can be expanded in the future to include additional job boards.
+This Python project is a web scraper designed to extract job listings from a job board website (Just Join IT). The scraper gathers detailed job information, including job title, company name, locat ion, salary, and required technologies, and stores the data in a PostgreSQL database using SQLAlchemy. This project also serves as a data input source for subsequent projects and can be expanded in the future to include additional job boards.
+
 
 ## Table of Contents
 
