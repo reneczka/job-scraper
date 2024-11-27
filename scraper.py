@@ -51,21 +51,20 @@ def get_job_details(page, job_url):
     page.goto(job_url)
     
     # offer details part 1
-    type_of_work_label = page.get_by_text('Type of work').first
+    type_of_work_label = page.get_by_text('Type of work', exact=True).first
     type_of_work = type_of_work_label.locator('xpath=following-sibling::*[1]').text_content()
     
-    # experience_label = page.get_by_text('Experience').first
-    experience_label = page.locator('//div[text()="Experience"]')
+    experience_label = page.get_by_text('Experience', exact=True).first
     experience = experience_label.locator('xpath=following-sibling::*[1]').text_content()
     
-    employment_type_label = page.get_by_text('Employment Type').first
+    employment_type_label = page.get_by_text('Employment Type', exact=True).first
     employment_type = employment_type_label.locator('xpath=following-sibling::*[1]').text_content()
 
-    operating_mode_label = page.get_by_text('Operating mode').first
+    operating_mode_label = page.get_by_text('Operating mode', exact=True).first
     operating_mode = operating_mode_label.locator('xpath=following-sibling::*[1]').text_content()
 
     # offer details part 2
-    techstack_label = page.get_by_text('Tech stack').first
+    techstack_label = page.get_by_text('Tech stack', exact=True).first
     techstack_container = techstack_label.locator("xpath=following-sibling::*[1]").locator("ul")
     tech_items = techstack_container.locator("> div")
 
@@ -82,7 +81,7 @@ def get_job_details(page, job_url):
         technologies.append(tech_dict)
 
     # offer details part 3
-    job_description = page.get_by_text('Job description').first.locator('..').locator("xpath=following-sibling::div[1]").inner_text()
+    job_description = page.get_by_text('Job description', exact=True).first.locator('..').locator("xpath=following-sibling::div[1]").inner_text()
 
     return {
         'type_of_work': type_of_work,
@@ -107,7 +106,7 @@ def scrape_jobs():
         
         page.click('button[name="sort_filter_button"]')
         time.sleep(1)
-        page.get_by_text("Latest").click()
+        page.get_by_text("Latest", exact=True).click()
         time.sleep(1)
         
         page.click('button[name="more_filters_button"]')
